@@ -1,4 +1,4 @@
-package entities
+package model
 
 type Todo struct {
 	Base       `gorm:"embedded"`

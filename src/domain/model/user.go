@@ -1,4 +1,4 @@
-package entities
+package model
 
 type User struct {
 	Base     `gorm:"embedded"`
