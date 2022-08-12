@@ -3,7 +3,6 @@ package repository
 import (
 	"github.com/1saifj/go_todo_tdd/src/domain/model"
 	"github.com/1saifj/go_todo_tdd/src/parameters"
-	"github.com/1saifj/go_todo_tdd/src/usecase/repository"
 	"gorm.io/gorm"
 )
 
@@ -11,7 +10,11 @@ type todoRepository struct {
 	db *gorm.DB
 }
 
-func NewTodoRepository(db *gorm.DB) repository.TodoRepository {
+type TodoRepository interface {
+	FindAll(parameters.FilterTodoParameters) ([]*model.Todo, error)
+}
+
+func NewTodoRepository(db *gorm.DB) TodoRepository {
 	return &todoRepository{db}
 }
 

@@ -1,9 +1,9 @@
 package controller
 
 import (
+	"github.com/1saifj/go_todo_tdd/src/interface/repository"
 	"github.com/1saifj/go_todo_tdd/src/parameters"
-	"github.com/1saifj/go_todo_tdd/src/usecase/repository"
-	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris"
 )
 
 type userController struct {
@@ -15,8 +15,8 @@ type UserController interface {
 	Login(ctx iris.Context)
 }
 
-func NewUserController(ur repository.UserRepository) {
-	return &userController{ur}
+func NewUserController(ur repository.UserRepository) UserController {
+	return &userController{UserRepository: ur}
 }
 
 func (uc userController) CreateUser(ctx iris.Context) {
@@ -27,7 +27,7 @@ func (uc userController) CreateUser(ctx iris.Context) {
 		return
 	}
 
-	user, err := c.UserRepository.CreateUser(params)
+	user, err := uc.UserRepository.CreateUser(params)
 	if err != nil {
 		return
 	}
